@@ -39,9 +39,23 @@ namespace Assets.Scripts
                 if (hit == boxCollider)
                     continue;
 
-                _grounded = true;
+                var colliderDistance = hit.Distance(boxCollider);
+
+                // Ensure that we are still overlapping this collider.
+                // The overlap may no longer exist due to another intersected collider
+                // pushing us out of this one.
+                //if (colliderDistance.isOverlapped)
+                {
+                    //transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
+
+                    // If we intersect an object beneath us, set grounded to true. 
+                    if (Vector2.Angle(colliderDistance.normal, Vector2.up) < 90) // && velocity.y < 0)
+                    {
+                        _grounded = true;
+                    }
+                }
             }
-            _anim.SetBool("Ground", _grounded);
+            _anim.SetBool("ground", _grounded);
 
             // Set the vertical animation
             _anim.SetFloat("vSpeed", _rigidbody2D.velocity.y);
@@ -77,7 +91,7 @@ namespace Assets.Scripts
             {
                 // Add a vertical force to the player.
                 _grounded = false;
-                _anim.SetBool("Ground", false);
+                _anim.SetBool("ground", false);
                 _rigidbody2D.AddForce(new Vector2(0f, _jumpForce));
             }
         }
