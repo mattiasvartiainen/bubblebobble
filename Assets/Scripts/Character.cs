@@ -9,16 +9,31 @@ namespace Assets.Scripts
 {
     public class Character : MonoBehaviour
     {
+        [SerializeField] public bool FacingRight = false;                // For determining which way the player is currently facing.
         [SerializeField] private float _jumpForce = 400f;                  // Amount of force added when the player jumps.
         [SerializeField] protected float maxSpeed = 10f;    // The fastest the character can travel in the x axis.
         [SerializeField] protected bool _airControl = false;                 // Whether or not a player can steer while jumping;
 
         protected bool _grounded;                           // Whether or not the character is grounded.
         protected Rigidbody2D _rigidbody2D;
-        protected bool _facingRight = false;                // For determining which way the player is currently facing.
 
         protected Animator _anim;            // Reference to the player's animator component.
         protected BoxCollider2D boxCollider;
+
+        private void FixedUpdate()
+        {
+            //m_Grounded = false;
+
+            //Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+            //for (int i = 0; i < colliders.Length; i++)
+            //{
+            //    if (colliders[i].gameObject != gameObject)
+            //        m_Grounded = true;
+            //}
+            //m_Anim.SetBool("Ground", m_Grounded);
+
+            //m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
+        }
 
         public void Move(float move, bool jump)
         {
@@ -32,13 +47,13 @@ namespace Assets.Scripts
                 _rigidbody2D.velocity = new Vector2(move * maxSpeed, _rigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
-                if (move > 0 && !_facingRight)
+                if (move > 0 && !FacingRight)
                 {
                     // ... flip the player.
                     Flip();
                 }
                 // Otherwise if the input is moving the player left and the player is facing right...
-                else if (move < 0 && _facingRight)
+                else if (move < 0 && FacingRight)
                 {
                     // ... flip the player.
                     Flip();
@@ -86,10 +101,10 @@ namespace Assets.Scripts
             return grounded;
         }
 
-        private void Flip()
+        protected void Flip()
         {
             // Switch the way the player is labelled as facing.
-            _facingRight = !_facingRight;
+            FacingRight = !FacingRight;
 
             // Multiply the player's x local scale by -1.
             //Vector3 theScale = transform.localScale;
