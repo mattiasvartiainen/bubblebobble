@@ -1,5 +1,6 @@
 ﻿namespace Assets.Scripts
 {
+    using System;
     using UnityEngine;
 
     [RequireComponent(typeof(BoxCollider2D))]
@@ -7,19 +8,21 @@
     {
         [SerializeField] public bool FacingRight = false;
 
-        public LayerMask collisionMask;
+        public LayerMask CollisionMask;
 
-        public CollisionInfo collisions;
+        public CollisionInfo Collisions;
 
         public SpriteRenderer SpriteRenderer;
+
+        private const float Tolerance = 0.01f;
 
         public void Move(Vector3 velocity)
         {
             UpdateRaycastOrigins();
-            collisions.Reset();
+            Collisions.Reset();
 
-            if (velocity.x != 0) HorizontalCollisions(ref velocity);
-            if (velocity.y != 0) VerticalCollisions(ref velocity);
+            if (Math.Abs(velocity.x) >= Tolerance) HorizontalCollisions(ref velocity);
+            if (Math.Abs(velocity.y) >= Tolerance) VerticalCollisions(ref velocity);
 
             if (velocity.x < 0 && !FacingRight)
             {
@@ -33,7 +36,7 @@
             transform.Translate(velocity);
         }
 
-        private void Flip()
+        public void Flip()
         {
             FacingRight = !FacingRight;
             SpriteRenderer.flipX = !FacingRight;
@@ -47,26 +50,25 @@
 
             for (var i = 0; i < horizontalRayCount; i++)
             {
-                Vector2 rayOrigin = directionX == -1 ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
+                Vector2 rayOrigin = (int)directionX == -1 ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
                 rayOrigin += Vector2.up * (horizontalRaySpacing * i);
-                var hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+                var hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, CollisionMask);
 
-                Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
+                Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red, Time.deltaTime, false);
 
-                if (hit)
+                if (!hit) continue;
+
+                if ((int)directionY == 1 && hit.collider.tag == "Level")
                 {
-                    if (directionY == 1 && hit.collider.tag == "Level")
-                    {
-                        collisions.left = collisions.right = false;
-                        continue;
-                    }
-
-                    velocity.x = (hit.distance - skinWidth) * directionX;
-                    rayLength = hit.distance;
-
-                    collisions.left = directionX == -1;
-                    collisions.right = directionX == 1;
+                    Collisions.Left = Collisions.Right = false;
+                    continue;
                 }
+
+                velocity.x = (hit.distance - skinWidth) * directionX;
+                rayLength = hit.distance;
+
+                Collisions.Left = (int)directionX == -1;
+                Collisions.Right = (int)directionX == 1;
             }
         }
 
@@ -77,38 +79,38 @@
 
             for (var i = 0; i < verticalRayCount; i++)
             {
-                Vector2 rayOrigin = directionY == -1 ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
+                Vector2 rayOrigin = (int)directionY == -1 ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
                 rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
-                var hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
+                var hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, CollisionMask);
 
                 Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
 
                 if (hit)
                 {
-                    if (directionY == 1 && hit.collider.tag == "Level")
+                    if ((int)directionY == 1 && hit.collider.tag == "Level")
                     {
-                        collisions.above = false;
+                        Collisions.Above = false;
                         continue;
                     }
 
                     velocity.y = (hit.distance - skinWidth) * directionY;
                     rayLength = hit.distance;
 
-                    collisions.below = directionY == -1;
-                    collisions.above = directionY == 1;
+                    Collisions.Below = (int)directionY == -1;
+                    Collisions.Above = (int)directionY == 1;
                 }
             }
         }
 
         public struct CollisionInfo
         {
-            public bool above, below;
-            public bool left, right;
+            public bool Above, Below;
+            public bool Left, Right;
 
             public void Reset()
             {
-                above = below = false;
-                left = right = false;
+                Above = Below = false;
+                Left = Right = false;
             }
         }
     }

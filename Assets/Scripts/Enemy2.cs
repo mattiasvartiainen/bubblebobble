@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [RequireComponent(typeof(Controller2D))]
-    public class Character2 : MonoBehaviour
+    public class Enemy2 : MonoBehaviour
     {
         public float JumpHeight = 4;
         public float TimeToJumpApex = .4f;
@@ -12,7 +12,7 @@
 
         readonly float accelerationTimeAirborne = .2f;
         readonly float accelerationTimeGrounded = .1f;
-        readonly float moveSpeed = 6;
+        readonly float moveSpeed = 3;
 
         private float _gravity;
         private float _jumpVelocity;
@@ -38,17 +38,17 @@
                 _velocity.y = 0;
             }
 
-            var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-            if (Input.GetKeyDown(KeyCode.Space) && _controller.Collisions.Below)
+            if (_controller.Collisions.Left || _controller.Collisions.Right)
             {
-                _velocity.y = _jumpVelocity;
+                _controller.Flip();
             }
+
+            var input = new Vector2(_controller.FacingRight ? -1.0f : 1.0f, 0.0f);
 
             Anim.SetBool("ground", _controller.Collisions.Below);
 
             var targetVelocityX = input.x * moveSpeed;
-            _velocity.x = Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _velocityXSmoothing, (_controller.Collisions.Below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+            _velocity.x = targetVelocityX; // Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _velocityXSmoothing, (_controller.Collisions.Below) ? accelerationTimeGrounded : accelerationTimeAirborne);
             _velocity.y += _gravity * Time.deltaTime;
             _controller.Move(_velocity * Time.deltaTime);
 
