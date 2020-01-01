@@ -39,7 +39,8 @@
         public void Flip()
         {
             FacingRight = !FacingRight;
-            SpriteRenderer.flipX = !FacingRight;
+            //SpriteRenderer.flipX = !FacingRight;
+            transform.localScale = new Vector3(FacingRight ? 1 : -1, 1, 1);
         }
 
         private void HorizontalCollisions(ref Vector3 velocity)

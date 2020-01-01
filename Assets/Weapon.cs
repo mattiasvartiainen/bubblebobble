@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
@@ -19,6 +17,12 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
+        if ((int)firePoint.localScale.x != (int)firePoint.parent.localScale.x)
+        {
+            firePoint.localScale = firePoint.parent.localScale;
+            firePoint.Rotate(0, 180f, 0);
+        }
+
         Instantiate(bubblePrefab, firePoint.position, firePoint.rotation);
     }
 }

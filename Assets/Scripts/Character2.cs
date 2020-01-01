@@ -45,6 +45,8 @@
                 _velocity.y = _jumpVelocity;
             }
 
+            Anim.SetBool("Fire", Input.GetButtonDown("Fire1"));
+
             Anim.SetBool("ground", _controller.Collisions.Below);
 
             var targetVelocityX = input.x * moveSpeed;
@@ -58,6 +60,13 @@
                 speed = 0;
             }
             Anim.SetFloat("Speed", speed);
+        }
+
+        void OnCollisionEnter(Collision col)
+        {
+            if (col.gameObject.CompareTag("Enemy"))
+            {
+            }
         }
     }
 }
