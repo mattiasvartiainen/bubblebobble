@@ -21,6 +21,8 @@
 
         private Controller2D _controller;
 
+        private bool bubbled = false;
+
         void Start()
         {
             _controller = GetComponent<Controller2D>();
@@ -38,6 +40,24 @@
                 _velocity.y = 0;
             }
 
+            if (bubbled)
+            {
+                AnimateBubbled();
+            }
+            else
+            {
+                AnimateMovement();
+            }
+        }
+
+        private void AnimateBubbled()
+        {
+            _velocity.y = -_gravity * Time.deltaTime;
+            _controller.Move(_velocity * Time.deltaTime);
+        }
+
+        private void AnimateMovement()
+        {
             if (_controller.Collisions.Left || _controller.Collisions.Right)
             {
                 _controller.Flip();
@@ -48,7 +68,8 @@
             Anim.SetBool("ground", _controller.Collisions.Below);
 
             var targetVelocityX = input.x * moveSpeed;
-            _velocity.x = targetVelocityX; // Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _velocityXSmoothing, (_controller.Collisions.Below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+            _velocity.x =
+                targetVelocityX; // Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _velocityXSmoothing, (_controller.Collisions.Below) ? accelerationTimeGrounded : accelerationTimeAirborne);
             _velocity.y += _gravity * Time.deltaTime;
             _controller.Move(_velocity * Time.deltaTime);
 
@@ -57,7 +78,17 @@
             {
                 speed = 0;
             }
+
             Anim.SetFloat("Speed", speed);
+        }
+
+        public void HitByBubble()
+        {
+            if (bubbled == true)
+                return;
+
+            bubbled = true;
+            Anim.SetBool("Bubbled", bubbled);
         }
     }
 }

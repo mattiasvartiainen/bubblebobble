@@ -50,7 +50,8 @@
             Anim.SetBool("ground", _controller.Collisions.Below);
 
             var targetVelocityX = input.x * moveSpeed;
-            _velocity.x = Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _velocityXSmoothing, (_controller.Collisions.Below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+            _velocity.x = Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _velocityXSmoothing,
+                (_controller.Collisions.Below) ? accelerationTimeGrounded : accelerationTimeAirborne);
             _velocity.y += _gravity * Time.deltaTime;
             _controller.Move(_velocity * Time.deltaTime);
 
@@ -59,14 +60,22 @@
             {
                 speed = 0;
             }
+
             Anim.SetFloat("Speed", speed);
         }
 
-        void OnCollisionEnter(Collision col)
+        void OnCollisionEnter(Collision target)
         {
-            if (col.gameObject.CompareTag("Enemy"))
+            Debug.Log($"OnCollisionEnter {target.gameObject.name}");
+
+            if (target.gameObject.CompareTag("Enemy"))
             {
             }
+        }
+
+        void OnTriggerEnter2D(Collider2D target)
+        {
+            Debug.Log($"OnTriggerEnter2D {target.name}");
         }
     }
 }

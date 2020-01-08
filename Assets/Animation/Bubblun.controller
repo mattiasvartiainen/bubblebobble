@@ -8,8 +8,11 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 3
+    m_ConditionEvent: Speed
+    m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: isDead
+    m_ConditionEvent: ground
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 902992856212395810}
@@ -56,7 +59,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: hit
+    m_ConditionEvent: Fire
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5428716363226497987}
@@ -164,25 +167,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: hit
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ground
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Speed
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
+  - m_Name: Fire
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -234,16 +243,16 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -3558984483400094852}
-    m_Position: {x: 300, y: -40, z: 0}
+    m_Position: {x: 490, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 902992856212395810}
-    m_Position: {x: 110, y: 70, z: 0}
+    m_Position: {x: 300, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5428716363226497987}
-    m_Position: {x: 470, y: 70, z: 0}
+    m_Position: {x: 660, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3652229171883520786}
-    m_Position: {x: 660, y: 150, z: 0}
+    m_Position: {x: 850, y: 280, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -9117331681755021432}
@@ -252,9 +261,9 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 280, y: 190, z: 0}
-  m_EntryPosition: {x: 210, y: -180, z: 0}
-  m_ExitPosition: {x: 400, y: 280, z: 0}
+  m_AnyStatePosition: {x: 470, y: 320, z: 0}
+  m_EntryPosition: {x: 400, y: -50, z: 0}
+  m_ExitPosition: {x: 590, y: 410, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -3558984483400094852}
 --- !u!1102 &5428716363226497987
