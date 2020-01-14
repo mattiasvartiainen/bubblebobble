@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Border
   - Level
+  - Enemy
+  - BubbledEnemy
   layers:
   - Default
   - TransparentFX

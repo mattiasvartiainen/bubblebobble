@@ -21,8 +21,8 @@ public class Bubble : MonoBehaviour
 
         var enemy = target.GetComponent<Enemy2>();
         if (enemy != null)
-        {
-            enemy.HitByBubble();
+        { 
+        //    enemy.HitByBubble();
             Destroy(gameObject);
         }
     }

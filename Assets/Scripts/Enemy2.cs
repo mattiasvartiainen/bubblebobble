@@ -1,10 +1,15 @@
 ﻿namespace Assets.Scripts
 {
+    using System.Linq.Expressions;
     using UnityEngine;
 
     [RequireComponent(typeof(Controller2D))]
     public class Enemy2 : MonoBehaviour
     {
+        public float Cooldown = 10;
+        public float Timer;
+        public GameObject deathEffectPrefab;
+
         public float JumpHeight = 4;
         public float TimeToJumpApex = .4f;
 
@@ -43,8 +48,14 @@
             if (bubbled)
             {
                 AnimateBubbled();
+                Timer += Time.deltaTime;
+                if (Timer >= Cooldown)
+                {
+                    Respawn();
+                }
             }
-            else
+
+            if(!bubbled)
             {
                 AnimateMovement();
             }
@@ -87,8 +98,41 @@
             if (bubbled == true)
                 return;
 
+            Timer = 0;
             bubbled = true;
+            gameObject.tag = "BubbledEnemy";
             Anim.SetBool("Bubbled", bubbled);
+        }
+
+        private void Respawn()
+        {
+            bubbled = false;
+            gameObject.tag = "Enemy";
+            Anim.SetBool("Bubbled", bubbled);
+        }
+
+        void OnTriggerEnter2D(Collider2D target)
+        {
+            Debug.Log($"Enemy OnTriggerEnter2D {target.name}");
+
+            if (target.name.StartsWith("Bubble"))
+            {
+                HitByBubble();
+            }
+
+            if (target.gameObject.tag.Equals("Player"))
+            {
+                if (bubbled == true)
+                {
+                    Die();
+                }
+            }
+        }
+
+        private void Die()
+        {
+            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }
