@@ -33,6 +33,11 @@
 
         void Update()
         {
+            if (transform.position.y < -10f)
+            {
+                transform.position = new Vector3(transform.position.x, 7f, transform.position.z); 
+            }
+
             if (_controller.Collisions.Above || _controller.Collisions.Below)
             {
                 _velocity.y = 0;
