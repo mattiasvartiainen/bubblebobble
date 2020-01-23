@@ -5,14 +5,14 @@
     [RequireComponent(typeof(Controller2D))]
     public class Character2 : MonoBehaviour
     {
-        public float JumpHeight = 4;
+        public float JumpHeight = 3;
         public float TimeToJumpApex = .4f;
+        public float MoveSpeed = 4;
 
         protected Animator Anim;
 
         readonly float accelerationTimeAirborne = .2f;
         readonly float accelerationTimeGrounded = .1f;
-        readonly float moveSpeed = 6;
 
         private float _gravity;
         private float _jumpVelocity;
@@ -49,7 +49,7 @@
 
             Anim.SetBool("ground", _controller.Collisions.Below);
 
-            var targetVelocityX = input.x * moveSpeed;
+            var targetVelocityX = input.x * MoveSpeed;
             _velocity.x = Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _velocityXSmoothing,
                 (_controller.Collisions.Below) ? accelerationTimeGrounded : accelerationTimeAirborne);
             _velocity.y += _gravity * Time.deltaTime;

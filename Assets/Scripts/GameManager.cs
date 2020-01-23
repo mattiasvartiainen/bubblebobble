@@ -52,10 +52,11 @@ namespace Assets.Scripts
 
         public void EnemyKilled()
         {
-            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            if (!enemies.Any())
+            var enemiesExists = GameObject.FindGameObjectsWithTag("Enemy").Any() || GameObject.FindGameObjectsWithTag("BubbledEnemy").Any();
+            if (!enemiesExists)
             {
-                SceneManager.LoadScene("Level02");
+                var nextScene = SceneManager.GetActiveScene().name.Equals("Level02") ? "Level05" : "Level02";
+                SceneManager.LoadScene(nextScene);
             }
         }
     }
