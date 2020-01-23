@@ -61,6 +61,8 @@
                 speed = 0;
             }
 
+            Anim.SetBool("IsWalking", speed > 0.01f && _controller.Collisions.Below);
+
             Anim.SetFloat("Speed", speed);
         }
 
@@ -71,27 +73,6 @@
             if (target.gameObject.CompareTag("Enemy"))
             {
                 Debug.Log("Bubblun is dead!");
-            }
-        }
-
-        void OnTriggerEnter2D(Collider2D target)
-        {
-            Debug.Log($"Bubblun OnTriggerEnter2D {target.gameObject.tag} {target.gameObject.name}");
-
-            if (target.gameObject.CompareTag("Enemy"))
-            {
-                Debug.Log("Bubblun is dead!");
-            }
-
-            if (target.gameObject.CompareTag("BubbledEnemy"))
-            {
-                Debug.Log("Check if enemy is killed");
-            }
-
-            if (target.gameObject.name.StartsWith("PickupObject"))
-            {
-                Debug.Log($"Got {target.gameObject.GetComponent<PickupObject>().Score}");
-                Destroy(target.gameObject);
             }
         }
     }

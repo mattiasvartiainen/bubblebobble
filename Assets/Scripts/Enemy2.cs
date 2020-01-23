@@ -133,6 +133,7 @@
         {
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
+            GameManager.instance.EnemyKilled();
         }
     }
 }
