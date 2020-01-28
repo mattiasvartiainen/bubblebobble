@@ -14,7 +14,7 @@
 
         public SpriteRenderer SpriteRenderer;
 
-        private const float Tolerance = 0.01f;
+        private const float Tolerance = 0.001f;
 
         public void Move(Vector3 velocity)
         {

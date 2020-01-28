@@ -2,6 +2,8 @@
 
 namespace Assets.Scripts
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Diagnostics.Eventing.Reader;
     using System.Linq;
     using UnityEngine.SceneManagement;
@@ -52,12 +54,21 @@ namespace Assets.Scripts
 
         public void EnemyKilled()
         {
-            var enemiesExists = GameObject.FindGameObjectsWithTag("Enemy").Any() || GameObject.FindGameObjectsWithTag("BubbledEnemy").Any();
+            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            var bubbledEnemies = GameObject.FindGameObjectsWithTag("BubbledEnemy");
+            var enemiesExists = enemies.Any() || bubbledEnemies.Length > 1;
             if (!enemiesExists)
             {
-                var nextScene = SceneManager.GetActiveScene().name.Equals("Level02") ? "Level05" : "Level02";
-                SceneManager.LoadScene(nextScene);
+                StartCoroutine(LevelComplete());
             }
+        }
+
+        IEnumerator LevelComplete()
+        {
+            yield return new WaitForSeconds(5);
+
+            var nextScene = SceneManager.GetActiveScene().name.Equals("Level02") ? "Level05" : "Level02";
+            SceneManager.LoadScene(nextScene);
         }
     }
 }

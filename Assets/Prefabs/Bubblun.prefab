@@ -112,6 +112,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -191,7 +192,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &2189399473537140385
 MonoBehaviour:
@@ -243,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpHeight: 4
   TimeToJumpApex: 0.4
+  MoveSpeed: 4
 --- !u!114 &2189399473537140384
 MonoBehaviour:
   m_ObjectHideFlags: 0

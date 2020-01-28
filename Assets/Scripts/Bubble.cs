@@ -20,7 +20,7 @@ public class Bubble : MonoBehaviour
         Debug.Log($"Bubble OnTriggerEnter2D {target.name}");
 
         var enemy = target.GetComponent<Enemy2>();
-        if (enemy != null)
+        if (enemy != null && !enemy.gameObject.tag.Equals("BubbledEnemy"))
         { 
         //    enemy.HitByBubble();
             Destroy(gameObject);
