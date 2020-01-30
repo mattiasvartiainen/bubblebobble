@@ -120,9 +120,14 @@
         {
             Debug.Log($"Enemy OnTriggerEnter2D {target.name}");
 
-            if (target.name.StartsWith("Bubble"))
+            var bubble = target.GetComponent<Bubble>();
+            if (bubble != null && bubble.IsActive)
             {
                 HitByBubble();
+            }
+            else if (bubble != null)
+            {
+                //Physics2D.IgnoreCollision(bubble.gameObject.GetComponent<CircleCollider2D>(), GetComponent<BoxCollider2D>());
             }
 
             if (target.gameObject.tag.Equals("Player"))
@@ -136,7 +141,9 @@
 
         private void Die()
         {
+            // TODO: Maybe use object pool for bubbles?
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+
             Destroy(gameObject);
             GameManager.instance.EnemyKilled();
         }

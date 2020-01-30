@@ -78,5 +78,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickupObject Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2893343948368071087, guid: 784b66db7dd645a40b45d5d9a38dc11d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 784b66db7dd645a40b45d5d9a38dc11d, type: 3}

@@ -57,7 +57,10 @@
             var targetVelocityX = input.x * MoveSpeed;
             _velocity.x = Mathf.SmoothDamp(_velocity.x, targetVelocityX, ref _velocityXSmoothing,
                 (_controller.Collisions.Below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+
             _velocity.y += _gravity * Time.deltaTime;
+            if (_velocity.y < -8) _velocity.y = -8;
+
             _controller.Move(_velocity * Time.deltaTime);
 
             var speed = Mathf.Abs(_velocity.x);

@@ -23,6 +23,6 @@ public class Weapon : MonoBehaviour
             firePoint.Rotate(0, 180f, 0);
         }
 
-        Instantiate(bubblePrefab, firePoint.position, firePoint.rotation);
+        var bubble = Instantiate(bubblePrefab, firePoint.position, firePoint.rotation);
     }
 }
