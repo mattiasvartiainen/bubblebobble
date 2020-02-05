@@ -42,6 +42,12 @@
         {
             Debug.Log($"Bubble OnTriggerEnter2D {target.name}");
 
+            if (target.name.Equals("Border") && Math.Abs(rb.velocity.x) > 0.01f)
+            {
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+                rb.velocity = transform.up * 2f;
+            }
+
             if (IsActive)
             {
                 var enemy = target.GetComponent<Enemy2>();

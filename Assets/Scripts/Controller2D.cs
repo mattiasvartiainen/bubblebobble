@@ -16,6 +16,9 @@
 
         private const float Tolerance = 0.001f;
 
+        public delegate void OnChangeDirectionDelegate(bool facingRight);
+        public OnChangeDirectionDelegate OnChangeDirection;
+
         public void Move(Vector3 velocity)
         {
             UpdateRaycastOrigins();
@@ -24,13 +27,9 @@
             if (Math.Abs(velocity.x) >= Tolerance) HorizontalCollisions(ref velocity);
             if (Math.Abs(velocity.y) >= Tolerance) VerticalCollisions(ref velocity);
 
-            if (velocity.x < 0 && !FacingRight)
+            if (velocity.x < -0.01f && !FacingRight || velocity.x > 0.01f && FacingRight)
             {
-                Flip();
-            }
-            else if (velocity.x > 0 && FacingRight)
-            {
-                Flip();
+                OnChangeDirection?.Invoke(FacingRight);
             }
 
             transform.Translate(velocity);

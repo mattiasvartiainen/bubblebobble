@@ -31,11 +31,25 @@
         void Start()
         {
             _controller = GetComponent<Controller2D>();
+            _controller.OnChangeDirection += ChangeDirection;
+
             Anim = GetComponent<Animator>();
 
             _gravity = -(2 * JumpHeight) / Mathf.Pow(TimeToJumpApex, 2);
             _jumpVelocity = Mathf.Abs(_gravity) * TimeToJumpApex;
             print("Gravity: " + _gravity + "  Jump Velocity: " + _jumpVelocity);
+        }
+
+        private void ChangeDirection(bool facingRight)
+        {
+            if(_velocity.x < 0 && !facingRight)
+            {
+                _controller.Flip();
+            }
+            else if (_velocity.x > 0 && facingRight)
+            {
+                _controller.Flip();
+            }
         }
 
         void Update()
