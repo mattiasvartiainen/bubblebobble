@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2790403724806905744}
   - component: {fileID: 2790403724806905745}
-  - component: {fileID: 2790403724806905750}
   - component: {fileID: 2790403724806905751}
+  - component: {fileID: 4348869296651829576}
+  - component: {fileID: 4445001461124248881}
   - component: {fileID: 6883785940449473243}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,29 +85,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &2790403724806905750
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!58 &2790403724806905751
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2790403724806905748}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_Enabled: 0
+  m_Density: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!58 &2790403724806905751
-CircleCollider2D:
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!61 &4348869296651829576
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,8 +115,39 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &4445001461124248881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790403724806905748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22795edd20a1314f97f520f8cf00284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinWidth: 0.025
+  horizontalRayCount: 4
+  verticalRayCount: 4
+  BoxCollider2D: {fileID: 0}
+  FacingRight: 0
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  SpriteRenderer: {fileID: 2790403724806905745}
 --- !u!114 &6883785940449473243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,5 +161,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  rb: {fileID: 2790403724806905750}
   IsActive: 1

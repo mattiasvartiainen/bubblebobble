@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts;
+using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
@@ -6,7 +7,6 @@ public class Weapon : MonoBehaviour
 
     public GameObject bubblePrefab;
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -23,6 +23,8 @@ public class Weapon : MonoBehaviour
             firePoint.Rotate(0, 180f, 0);
         }
 
-        var bubble = Instantiate(bubblePrefab, firePoint.position, firePoint.rotation);
+        var bubble = Instantiate(bubblePrefab, firePoint.position, Quaternion.identity);
+        bubble.transform.localScale = new Vector3((int)firePoint.parent.localScale.x, 1, 1);
+        bubble.GetComponent<Controller2D>().FacingRight = firePoint.parent.localScale.x > 0;
     }
 }

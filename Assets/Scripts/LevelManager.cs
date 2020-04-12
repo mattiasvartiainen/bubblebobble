@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] private Transform[] waypoints;
+
     private void Awake()
     {
         Debug.Log("Fiskens");
@@ -18,5 +20,10 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public Transform[] GetWaypoints()
+    {
+        return waypoints;
     }
 }
