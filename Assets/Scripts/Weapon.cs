@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
         if ((int)firePoint.localScale.x != (int)firePoint.parent.localScale.x)
         {
             firePoint.localScale = firePoint.parent.localScale;
-            firePoint.Rotate(0, 180f, 0);
+            //firePoint.Rotate(0, 180f, 0);
         }
 
         var bubble = Instantiate(bubblePrefab, firePoint.position, Quaternion.identity);

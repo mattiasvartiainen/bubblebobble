@@ -38,6 +38,7 @@
 
             var destX = 20 * transform.right.x;
             activeDestination = new Vector3( transform.position.x + direction, transform.position.y, 0f);
+            Debug.Log($"Bubble destination {activeDestination.x}");
         }
 
         private void ChangeDirection(bool facingRight)
@@ -143,7 +144,7 @@
 
         void OnCollisionEnter2D(Collision target)
         {
-            Debug.Log($"OnCollisionEnter Bubble {target.gameObject.name}");
+            //Debug.Log($"OnCollisionEnter Bubble {target.gameObject.name}");
         }
 
         private void OnTriggerEnter2D(Collider2D target)

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
+//using UnityStandardAssets.CrossPlatformInput;
 
 namespace Assets.Scripts
 {
@@ -21,7 +21,7 @@ namespace Assets.Scripts
             if (!_jump)
             {
                 // Read the jump input in Update so button presses aren't missed.
-                _jump = CrossPlatformInputManager.GetButtonDown("Jump");
+                //_jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
         }
 
@@ -29,9 +29,9 @@ namespace Assets.Scripts
         private void FixedUpdate()
         {
             // Read the inputs.
-            var h = CrossPlatformInputManager.GetAxis("Horizontal");
+            //var h = CrossPlatformInputManager.GetAxis("Horizontal");
             // Pass all parameters to the character control script.
-            _character.Move(h, _jump);
+            //_character.Move(h, _jump);
             _jump = false;
         }
     }

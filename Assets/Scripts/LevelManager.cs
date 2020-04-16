@@ -1,29 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] private Transform[] waypoints;
-
-    private void Awake()
+    public class LevelManager : MonoBehaviour
     {
-        Debug.Log("Fiskens");
-    }
+        [SerializeField] private Transform[] waypoints;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        private void Awake()
+        {
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+        }
 
-    public Transform[] GetWaypoints()
-    {
-        return waypoints;
+        // Update is called once per frame
+        void Update()
+        {
+        }
+
+        public Transform[] GetWaypoints()
+        {
+            return waypoints;
+        }
     }
 }
