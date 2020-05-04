@@ -50,7 +50,7 @@
         }
 
         [UnityTest]
-        public IEnumerator BubbleMovesRight()
+        public IEnumerator WhenFacingRight_ThenBubbleMovesRight()
         {
             // Arrange
             var bubble = Object.Instantiate(_asset, new Vector3(0, 0, 0), Quaternion.identity);
@@ -69,7 +69,7 @@
         }
         
         [UnityTest]
-        public IEnumerator BubbleMovesLeft()
+        public IEnumerator WhenFacingLeft_ThenBubbleMovesLeft()
         {
             // Arrange
             var bubble = Object.Instantiate(_asset, new Vector3(0, 0, 0), Quaternion.identity);
